@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WebSocket</string>
+    <string name="server">Server</string>
+    <string name="sender">Sender</string>
 </resources>
