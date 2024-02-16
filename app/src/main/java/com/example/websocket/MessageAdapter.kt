@@ -27,21 +27,19 @@ class MessageAdapter() : RecyclerView.Adapter<ViewHolder>() {
     override fun getItemCount(): Int = listOfChat.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (listOfChat[position].messageType)
-            (holder as OutMessageViewHolder).bind(listOfChat[position])
-        else
-            (holder as InMessageViewHolder).bind(listOfChat[position])
+        when(holder){
+            is OutMessageViewHolder -> holder.bind(listOfChat[position])
+            is InMessageViewHolder -> holder.bind(listOfChat[position])
+        }
     }
 
     inner class InMessageViewHolder(val binding: InMessageItemBinding) : ViewHolder(binding.root) {
-
         fun bind(data: IOMessage) {
             binding.itemMessage.text = data.message
         }
     }
 
     inner class OutMessageViewHolder(private val binding: OutMessageItemBinding) : ViewHolder(binding.root) {
-
         fun bind(data: IOMessage) {
             binding.itemMessage.text = data.message
         }
@@ -54,5 +52,6 @@ class MessageAdapter() : RecyclerView.Adapter<ViewHolder>() {
 
     fun setData(list: IOMessage) {
         listOfChat.addAll(listOf(list))
+        notifyItemInserted(listOfChat.size-1)
     }
 }
